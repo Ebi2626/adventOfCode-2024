@@ -1,0 +1,13 @@
+# Ignore all object files
+*.o
+
+# Ignore all executables (files without extensions)
+# Match files without a dot (.)
+*.[!.]*
+
+# Allow specific extensions
+!.gitignore
+!*.cpp
+!*.h
+!*.txt
+!*.md
