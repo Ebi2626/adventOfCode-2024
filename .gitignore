@@ -1,13 +1,16 @@
 # Ignore all object files
 *.o
 
-# Ignore all executables (files without extensions)
-# Match files without a dot (.)
-*.[!.]*
+# Ignore all files without extensions (executables)
+# Matches files in any directory that do not contain a '.'
+**/*
 
-# Allow specific extensions
-!.gitignore
+# Allow directories to be tracked
+!*/
+
+# Allow specific file types/extensions
 !*.cpp
 !*.h
 !*.txt
 !*.md
+!.gitignore
