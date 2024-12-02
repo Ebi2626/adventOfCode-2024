@@ -20,7 +20,7 @@ bool isSafe(std::vector<int> &numbers) {
             if(diff <= 0 || diff > 3) {
                 return false;
             }
-        } else if(!isIncreasig) {
+        } else {
             diff = numbers[i-1] - numbers[i];
             if(diff <= 0 || diff > 3) {
                 return false;
