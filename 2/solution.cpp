@@ -34,8 +34,26 @@ bool isSafe(std::vector<int> &numbers) {
     // TODO: verify version with "auto" and helper variable for previous value (logic from index 1)
 }
 
-void countSafeRowsInFile(const std::string &filename, int & safeRowsCount)
-{
+// Function veryfying if there is any permutation of numbers without one of them which will meet requirments
+bool isSafeWithSingleToleranceLevel(std::vector<int> &numbers) {
+    // Iterate over each number from vector to verify permutation without that number
+    for(int i = 0; i < numbers.size(); i++) {
+        // copying vector to create permutation without current number 
+        std::vector<int> numbersCopy = numbers;
+
+        // removing current number from vector
+        numbersCopy.erase( numbersCopy.begin() + i);
+        
+        // veryfing if new vector satisfy requirments
+        if(isSafe(numbersCopy)){
+            return true;
+        }
+    }
+    return false;
+}
+
+void countSafeRowsInFile(const std::string &filename, int & safeRowsCount, int & safeRowsWithSingleLevelToleration) {
+    
     // Open file to read data
     std::ifstream file(filename);
 
@@ -75,27 +93,38 @@ void countSafeRowsInFile(const std::string &filename, int & safeRowsCount)
         if(isSafe(numbers)) {
             // if so, increase counter
             safeRowsCount++;
+        } else {
+            if(isSafeWithSingleToleranceLevel(numbers)) {
+                safeRowsWithSingleLevelToleration++;
+            }
         }
     }
 
     return;
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
+    
     // Set default text input file name
     std::string inputName = DEFAULT_INPUT_NAME;
+
+    // Result for puzzle one: completly safe results
     int safeRowsCount = 0;
+
+    // Result to puzzle two: unsafe results which could be safe if one element would be removed
+    int safeRowsWithSingleLevelToleration = 0;
+
     // Read filename from CLI argument if any passed
     if(argc > 1) {
         inputName = argv[1];
     }
 
     // Read data from file and immediately count safe rows
-    countSafeRowsInFile(inputName, safeRowsCount);
+    countSafeRowsInFile(inputName, safeRowsCount, safeRowsWithSingleLevelToleration);
 
-    // Display result to the terminal
+    // Display results to the terminal
     std::cout << "Safe items count: " << safeRowsCount << std::endl;
+    std::cout << "Safe items with single level tolerance: " << safeRowsCount + safeRowsWithSingleLevelToleration << std::endl;
 
     return 0;
 }
