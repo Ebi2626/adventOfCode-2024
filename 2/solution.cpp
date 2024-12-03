@@ -100,7 +100,7 @@ void countSafeRowsInFile(const std::string &filename, int & safeRowsCount, int &
         }
     }
 
-    return;
+    file.close();
 }
 
 int main(int argc, char *argv[]) {
